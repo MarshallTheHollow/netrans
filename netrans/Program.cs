@@ -27,15 +27,27 @@ namespace netrans
                 string added_string = reader.ReadToEnd();                
 
                 Check_Dictionary dict_yandex = JsonConvert.DeserializeObject<Check_Dictionary>(added_string);
-                foreach(var elem in dict_yandex.Def)
+
+                if (dict_yandex.Def.Length == 0)
                 {
-                    foreach(var elemy in elem.Tr)
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Ничего не нашел :с");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    foreach (var elem in dict_yandex.Def)
                     {
-                        Console.WriteLine("перевод = " + elemy.Text);
-                    }                   
-                    Console.WriteLine("род = " + elem.Gen);
-                    Console.WriteLine("живой? = " + elem.Anm + "\n");
-                }               
+
+
+                        foreach (var elemy in elem.Tr)
+                        {
+                            Console.WriteLine("перевод = " + elemy.Text);
+                        }
+                        Console.WriteLine("род = " + elem.Gen);
+                        Console.WriteLine("живой? = " + elem.Anm + "\n");
+                    }
+                }
             }
             goto start;
         }
